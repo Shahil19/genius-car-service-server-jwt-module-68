@@ -28,14 +28,14 @@ function verifyJWT(req, res, next) {
 }
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.vwx9p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.3tiui.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
         await client.connect();
-        const serviceCollection = client.db('geniusCar').collection('service');
-        const orderCollection = client.db('geniusCar').collection('order');
+        const serviceCollection = client.db('genius-car').collection('service');
+        const orderCollection = client.db('genius-car').collection('order');
 
         // AUTH
         app.post('/login', async (req, res) => {
@@ -46,6 +46,9 @@ async function run() {
             res.send({ accessToken });
         })
 
+        app.get('/', (req, res) => {
+            res.send('running genius car ')
+        })
         // SERVICES API
         app.get('/service', async (req, res) => {
             const query = {};
@@ -88,8 +91,8 @@ async function run() {
                 const orders = await cursor.toArray();
                 res.send(orders);
             }
-            else{
-                res.status(403).send({message: 'forbidden access'})
+            else {
+                res.status(403).send({ message: 'forbidden access' })
             }
         })
 
@@ -107,11 +110,11 @@ async function run() {
 
 run().catch(console.dir);
 
-app.get('/', (req, res) => {
-    res.send('Running Genius Server');
-});
+// app.get('/', (req, res) => {
+//     res.send('Running Genius Server');
+// });
 
-app.get('/hero', (req, res) =>{
+app.get('/hero', (req, res) => {
     res.send('Hero meets hero ku')
 })
 
