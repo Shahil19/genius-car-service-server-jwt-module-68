@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
-
 const app = express();
 
 // middleware
@@ -26,8 +25,8 @@ function verifyJWT(req, res, next) {
         next();
     })
 }
-
-
+//git remote add origin https://github.com/Shahil19/genius-car-service-server-jwt-module-68.git
+//git push -u origin main
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.3tiui.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -116,6 +115,10 @@ run().catch(console.dir);
 
 app.get('/hero', (req, res) => {
     res.send('Hero meets hero ku')
+})
+
+app.get('/heroku', (req, res) => {
+    res.send('Im heroku')
 })
 
 app.listen(port, () => {
